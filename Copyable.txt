@@ -1,0 +1,739 @@
+				   	EXP 1b
+
+Q1
+
+clc;
+close all;
+clear all;
+num = [1 3 2]
+d1 = [1 4]
+d2 = [1 4 7]
+den = conv(d1,d2)
+g = tf(num, den)
+[z p k] = tf2zp (num, den)
+pzmap(g)
+
+
+Q2
+
+clc;
+close all;
+clear all;
+num = [1 0 9]
+d1 = [1]
+d2 = [1 -3]
+d3 = [1 4]
+d4 = [1 4 13]
+den1 = conv(d1,d2)
+den2 = conv(den1,d3)
+den3 = conv(den2,d4)
+g = tf(num, den3)
+[z p k] = tf2zp (num, den3)
+pzmap(g)
+
+
+Q3
+
+clc;
+close all;
+clear all;
+num = [2 18 36]
+d1 = [1 0]
+d2 = [1 -2]
+d3 = [1 4]
+d4 = [1 2 1]
+den1 = conv(d1,d2)
+den2 = conv(den1,d3)
+den3 = conv(den2,d4)
+g = tf(num, den3)
+[z p k] = tf2zp (num, den3)
+pzmap(g)
+
+Q4
+
+clc;
+close all;
+clear all;
+p = [-3, 2];
+z = [-1];
+k = 7;
+[num,den] = zp2tf(z,p,k)
+g = tf(num,den)
+pzmap(g)
+
+
+				   	   EXP 2
+
+
+Q1
+
+clc;
+clear all;
+close all;
+G1 = tf([1],[1 2])
+G2 = tf([1],[1 3])
+m = series(G1,G2)
+
+Q2
+
+clc;
+clear all;
+close all;
+G1 = tf([1],[1 2])
+G2 = tf([1],[1 3])
+m = feedback(G1,G2,-1)
+
+
+Q3 
+
+clc;
+clear all;
+close all;
+G1 = tf([1],[1 2])
+G2 = tf([1],[1 3])
+m = feedback(G1,G2,1)
+
+
+Q4
+
+clc;
+clear all;
+close all;
+G1 = tf([1],[1 2])
+G2 = tf([1],[1 3])
+m = parallel(G1,G2)
+
+
+Q5
+
+clc;
+clear all;
+close all;
+G1 = tf([4],[1 4 0])
+G2 = tf([1 1.2],[1])
+G3 = tf([1 0.8],[1])
+m = parallel(G2,G3)
+n = feedback(G1,1,-1)
+g = feedback(n,m,-1)
+
+
+Q6
+
+clc;
+clear all;
+close all;
+G1 = tf([1 0], [1])
+G2 = tf([4], [1])
+G3 = tf([0.5], [1])
+G4 = tf([1], [1 2 0])
+m1 = parallel(G1,G2)
+m2 = series(m1,G4)
+m3 = feedback(m2,G3,-1)
+g = feedback(m3,1,-1)
+
+
+					   EXP 3
+
+Q1
+
+clc;
+clear all;
+close all;
+n=[1]
+d=[1 5]
+g=tf(n,d)
+f=feedback(g,1,-1)
+step(f)
+
+
+Q2
+
+clc;
+clear all;
+close all;
+n=[1]
+d=[1 5]
+g=tf(n,d)
+f=feedback(g,1,-1)
+impulse(f,'g')
+
+
+Q3
+
+clc;
+clear all;
+close all;
+n=[2]
+d=[1 7]
+g=tf(n,d)
+f=feedback(g,1,-1)
+subplot(1,2,1)
+step(f)
+subplot(1,2,2)
+impulse(f,'g')
+
+Q4
+
+clc;
+clear all;
+close all;
+n=[1]
+d=[1 2 5]
+g=tf(n,d)
+f=feedback(g,1,-1)
+step(f)
+
+
+Q5
+
+clc;
+clear all;
+close all;
+n=[1]
+d=[1 2 5]
+g=tf(n,d)
+f=feedback(g,1,-1)
+impulse(f,'g')
+
+
+Q6
+
+clc;
+clear all;
+close all;
+n=[1]
+d=[1 3 4]
+g=tf(n,d)
+f=feedback(g,1,-1)
+subplot(1,2,1)
+step(f)
+subplot(1,2,2)
+impulse(f,'g')
+
+
+Q7
+
+clc;
+clear all;
+close all;
+n=[17]
+d1=[1 4]
+d2=[1 8]
+d = conv(d1, d2)
+g=tf(n,d)
+f=feedback(g,1,-1)
+subplot(1,2,1)
+step(f)
+subplot(1,2,2)
+impulse(f,'g')
+
+
+Q8
+
+clc;
+clear all;
+close all;
+w = 5;
+e1 = 0.1;
+e2 = 0.4;
+e3 = 0.7;
+e4 = 1.0;
+e5 = 1.3;
+e6 = 1.6;
+e7 = 1.9;
+ 
+n = [w*w]
+d1 = [1 2*e1*w 0]
+g1 = tf(n,d1)
+f1 = feedback(g1, 1, -1)
+subplot(3,3,1)
+impulse(f1,'b')
+ 
+d2 = [1 2*e2*w 0]
+g2 = tf(n,d2)
+f2 = feedback(g2, 1, -1)
+subplot(3,3,2)
+impulse(f2,'g')
+ 
+d3 = [1 2*e3*w 0]
+g3 = tf(n,d3)
+f3 = feedback(g3, 1, -1)
+subplot(3,3,3)
+impulse(f3,'r')
+ 
+d4 = [1 2*e4*w 0]
+g4 = tf(n,d4)
+f4 = feedback(g4, 1, -1)
+subplot(3,3,4)
+impulse(f4,'c')
+ 
+d5 = [1 2*e5*w 0]
+g5 = tf(n,d5)
+f5 = feedback(g5, 1, -1)
+subplot(3,3,5)
+impulse(f5,'m')
+ 
+d6 = [1 2*e6*w 0]
+g6 = tf(n,d6)
+f6 = feedback(g6, 1, -1)
+subplot(3,3,6)
+impulse(f6,'y')
+ 
+d7 = [1 2*e7*w 0]
+g7 = tf(n,d7)
+f7 = feedback(g7, 1, -1)
+subplot(3,3,7)
+impulse(f7,'k')
+
+
+Q9
+
+clc;
+clear all;
+close all;
+w = 5;
+e1 = 0.1;
+e2 = 0.4;
+e3 = 0.7;
+e4 = 1.0;
+e5 = 1.3;
+e6 = 1.6;
+e7 = 1.9;
+ 
+n = [w*w]
+d1 = [1 2*e1*w 0]
+g1 = tf(n,d1)
+f1 = feedback(g1, 1, -1)
+subplot(3,3,1)
+step(f1,'b')
+ 
+d2 = [1 2*e2*w 0]
+g2 = tf(n,d2)
+f2 = feedback(g2, 1, -1)
+subplot(3,3,2)
+step(f2,'g')
+ 
+d3 = [1 2*e3*w 0]
+g3 = tf(n,d3)
+f3 = feedback(g3, 1, -1)
+subplot(3,3,3)
+step(f3,'r')
+ 
+d4 = [1 2*e4*w 0]
+g4 = tf(n,d4)
+f4 = feedback(g4, 1, -1)
+subplot(3,3,4)
+step(f4,'c')
+ 
+d5 = [1 2*e5*w 0]
+g5 = tf(n,d5)
+f5 = feedback(g5, 1, -1)
+subplot(3,3,5)
+step(f5,'m')
+ 
+d6 = [1 2*e6*w 0]
+g6 = tf(n,d6)
+f6 = feedback(g6, 1, -1)
+subplot(3,3,6)
+step(f6,'y')
+ 
+d7 = [1 2*e7*w 0]
+g7 = tf(n,d7)
+f7 = feedback(g7, 1, -1)
+subplot(3,3,7)
+step(f7,'k')
+
+
+					  EXP 4
+
+Q1
+
+clc;
+clear all;
+close all;
+n = [1 1]
+d1 = [1 0]
+d2 = [0.7 1]
+d = conv(d1, d2)
+g = tf(n,d)
+rlocus(g)
+
+
+Q2
+
+clc;
+clear all;
+close all;
+n = [1]
+d1 = [1 0]
+d2 = [1 1]
+d3 = [1 4]
+d4 = conv(d1,d2)
+d = conv(d3,d4)
+g = tf(n,d)
+rlocus(g)
+
+Q3
+
+clc;
+clear all;
+close all;
+num=[1 0 4]
+den=[1 2 0]
+g=tf(num,den)
+rlocus(num,den)
+rlocfind(num,den)
+
+
+Q4
+
+clc;
+clear all;
+close all;
+n = [1 2]
+d = [1 2 2]
+g = tf(n,d)
+rlocus(g)
+rlocfind(n,d)
+
+
+Q5
+
+clc;
+clear all;
+close all;
+n = [1]
+d1 = [1 0]
+d2= [1 2 2]
+d= conv(d1,d2)
+g = tf(n,d)
+rlocus(g)
+rlocfind(n,d)
+
+
+Q6
+
+clc;
+clear all;
+close all;
+n = [1]
+d1 = [1 0]
+d2= [1 6]
+d3=[1 4 13]
+d4= conv(d1,d2)
+d = conv(d3,d4)
+g = tf(n,d)
+rlocus(g)
+rlocfind(n,d)
+
+
+					    
+
+     EXP 5
+
+
+Q1
+
+clc;
+clear all;
+close all;
+n = [1 3]
+d1 = [1 2]
+d2 = [1 -2]
+d = conv(d1, d2)
+g = tf(n,d)
+nyquist(g)
+
+
+Q2
+
+clc;
+clear all;
+close all;
+n = [1]
+d1 = [1 0]
+d2 = [1 1]
+d3 = [1 4]
+d4 = conv(d1, d2)
+d = conv(d3,d4)
+g = tf(n,d)
+nyquist(g)
+
+
+Q3
+
+clc;
+clear all;
+close all;
+n = [1 0.25]
+d1 = [1 0 0]
+d2 = [1 0.5]
+d3 = [1 1]
+d4 = conv(d1, d2)
+d = conv(d3,d4)
+g = tf(n,d)
+nyquist(g)
+
+
+Q4
+
+clc;
+clear all;
+close all;
+n = [2.2]
+d1 = [1 0]
+d2 = [1 1]
+d3 = [1 2 2]
+d4 = conv(d1, d2)
+d = conv(d3,d4)
+g = tf(n,d)
+nyquist(g)
+
+
+Q5
+
+clc;
+clear all;
+close all;
+n = [1 1]
+%d1 = [0.5 1]
+%d2 = [1 0]
+%d = conv(d1,d2)
+d = [0.5 1 0]
+g = tf(n,d)
+bode(g)
+margin(g)
+
+Q6
+
+clc;
+clear all;
+close all;
+n = [4 4]
+d1 = [1 0]
+d2 = [1 7]
+d3 = [1 10]
+d4 = conv(d1,d2)
+d = conv(d3, d4)
+g = tf(n,d)
+bode(g)
+
+
+Q7
+
+clc;
+clear all;
+close all;
+n = [50]
+d1 = [1 1]
+d2 = [1 2]
+d = conv(d1, d2)
+g = tf(n,d)
+bode(g)
+
+
+
+Q8
+
+clc;
+clear all;
+close all;
+n = [48 480]
+d1 = [1 0]
+d2 = [1 20]
+d3 = [1 2.4 16]
+d4 = conv(d1,d2)
+d = conv(d3, d4)
+g = tf(n,d)
+bode(g)
+
+		
+					    EXP 6
+
+
+Q1
+
+clc;
+clear all;
+close all;
+num = [1]
+den = [1 10 20]
+g = tf(num,den)
+t_f = feedback(g,1,-1)
+step(t_f,'y')
+hold on
+ 
+kp1 = 10
+num1 = [kp1]
+den1 = [1 10 20]
+g1 = tf(num1,den1)
+tf1 = feedback(g1,1,-1)
+step(tf1,'m')
+hold on
+ 
+kp = 500
+kd1 = 10
+num2 = [kd1 kp]
+den2 = [1 10 20]
+g2 = tf(num2,den2)
+tf2 = feedback(g2,1,-1)
+step(tf2,'b')
+hold on
+ 
+kd2 = 5
+num3 = [kd2 kp]
+den3 = [1 10 20]
+g3 = tf(num3, den3)
+tf3 = feedback(g3,1,-1)
+step(tf3,'r')
+hold on
+ 
+kd3 = 0.02
+num4 = [kd3 kp]
+den4 = [1 10 20]
+g4 = tf(num4, den4)
+tf4 = feedback(g4,1,-1)
+step(tf4,'g')
+
+
+Q2
+
+clc;
+clear all;
+close all;
+num = [1]
+den = [1 10 20]
+g = tf(num,den)
+t_f = feedback(g,1,-1)
+step(t_f,'y')
+hold on
+ 
+kp1 = 10
+num1 = [kp1]
+den1 = [1 10 20]
+g1 = tf(num1,den1)
+tf1 = feedback(g1,1,-1)
+step(tf1,'m')
+hold on
+ 
+kp = 500
+ki1 = 1
+num2 = [kp ki1]
+d = [1 0] %due to integrator, order and type increased
+den2 = conv(d,den)
+g2 = tf(num2,den2)
+tf2 = feedback(g2,1,-1)
+step(tf2,'b')
+hold on
+ 
+ki2 = 100
+num3 = [kp ki2]
+den3 = conv(d,den)
+g3 = tf(num3, den3)
+tf3 = feedback(g3,1,-1)
+step(tf3,'r')
+hold on
+ 
+ki3 = 500
+num4 = [kp ki3]
+den4 = conv(d,den)
+g4 = tf(num4, den4)
+tf4 = feedback(g4,1,-1)
+step(tf4,'g')
+hold on
+
+Q3
+
+clc;
+clear all;
+close all;
+num = [1]
+den = [1 10 20]
+g = tf(num,den)
+t_f = feedback(g,1,-1)
+step(t_f,'y')
+hold on
+ 
+kp1 = 10
+num1 = [kp1]
+den1 = [1 10 20]
+g1 = tf(num1,den1)
+tf1 = feedback(g1,1,-1)
+step(tf1,'m')
+hold on
+ 
+kp = 300
+kd1 = 10
+num2 = [kd1 kp]
+den2 = [1 10 20]
+g2 = tf(num2,den2)
+tf2 = feedback(g2,1,-1)
+step(tf2,'b')
+hold on
+
+
+
+Q4
+
+clc;
+clear all;
+close all;
+num = [1]
+den = [1 10 20]
+g = tf(num,den)
+t_f = feedback(g,1,-1)
+step(t_f,'y')
+hold on
+ 
+kp1 = 10
+num1 = [kp1]
+den1 = [1 10 20]
+g1 = tf(num1,den1)
+tf1 = feedback(g1,1,-1)
+step(tf1,'m')
+hold on
+ 
+kp = 30
+ki = 70
+num2 = [kp ki]
+d = [1 0] %due to integrator, order and type increased
+den2 = conv(d,den)
+g2 = tf(num2,den2)
+tf2 = feedback(g2,1,-1)
+step(tf2,'b')
+hold on
+
+
+
+Q5
+
+clc;
+clear all;
+close all;
+num = [1]
+den = [1 10 20]
+g = tf(num,den)
+t_f = feedback(g,1,-1)
+step(t_f,'y')
+hold on
+ 
+kp1 = 10
+num1 = [kp1]
+den1 = [1 10 20]
+g1 = tf(num1,den1)
+tf1 = feedback(g1,1,-1)
+step(tf1,'m')
+hold on
+ 
+kd = 50
+kp = 350
+ki = 300
+num2 = [kd kp ki]
+d = [1 0]
+den2 = conv(d,den)
+g2 = tf(num2,den2)
+tf2 = feedback(g2,1,-1)
+step(tf2,'b')
+hold on
+
+
